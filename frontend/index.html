@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Screen</title>
+</head>
+
+<body>
+    <h1>Login Page:</h1>
+    <label for="">username</label>
+    <input type="text" id="user"><br>
+    <label for="">password</label>
+    <input type="password" id="pass"><br>
+    <button>submit</button>
+</body>
+
+</html>
+
+<script>
+    let button = document.querySelector("button")
+    let user = document.querySelector("#user")
+    let pass = document.querySelector("#pass")
+    button.addEventListener("click", () => {
+
+        fetch('http://localhost:4500/signin/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "username": user.value,
+                "password": pass.value
+            }),
+        }).then((result) => {
+            return result.text()
+        }).then((res) => {
+            if (res=="true") {
+                localStorage.setItem("username",user.value)
+                location.href = "./game.html"
+            }
+            else {
+                alert(res)
+            }
+        })
+    })
+</script>

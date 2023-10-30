@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lost</title>
+
+</head>
+<body>
+<h1>you lost, game over.</h1>    
+<button>try again</button>
+</body>
+</html>
+
+<script>
+    let button = document.querySelector("button") 
+    button.addEventListener("click",()=>{
+        location.href="./game.html"
+    })
+
+
+    fetch('http://localhost:4500/user/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "username":  localStorage.getItem("username")
+            }),
+        }).then((result) => {
+            return result.json()
+        }).then((res) => {
+           alert(`total number of games played by you is: ${res.gamesplayed}`)
+        })
+</script>

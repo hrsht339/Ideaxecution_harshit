@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+</head>
+
+<body>
+    <h1>Game Page:</h1>
+    <h2>pick coins</h2>
+    <h3>only 21 coins are available</h3>
+    <label for="">number of coins</label>
+    <select name="" id="coin">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+    </select>
+    <button id="submit">submit</button>
+</body>
+
+</html>
+
+<script>
+    let coin = document.querySelector("#coin")
+    let button = document.querySelector("#submit")
+    let h3 = document.querySelector("h3")
+    let num = 21
+
+    button.addEventListener("click", () => {
+        if (num < 2) {
+            fetch('http://localhost:4500/update/', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "username": localStorage.getItem("username")
+                }),
+            }).then((result) => {
+                return result.text()
+            }).then((res) => {
+            })
+
+
+            alert("cpu won")
+            h3.innerText = `cpu won`
+            location.href = "./lost.html"
+        }
+        else {
+            num = num - Number(coin.value)
+            let cpu = 5 - Number(coin.value)
+            num = num - cpu
+            alert(`you chose ${coin.value} and cpu chose ${cpu}, only ${num} coins are left now`)
+            h3.innerText = `only ${num} coins are available`
+        }
+
+    })
+</script>
